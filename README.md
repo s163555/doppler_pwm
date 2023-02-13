@@ -1,4 +1,4 @@
-# STM32F411RE Doppler firmware
+# Doppler PWM firmware
 Firmware for Doppler project (BMM Laboratory). Developed spring 2023 for MSEE thesis built on top of Zephyr RTOS.
 
 ## Getting Started
@@ -28,7 +28,7 @@ The application can be built by running:
 west build -b $BOARD doppler_pwm
 ```
 
-where `$BOARD` is the target board (see `boards`).
+where `$BOARD` is the target board (see `boards/`). NUCLEO-F411RE board file is included with the repository.
 
 Once you have built the application you can flash it by running:
 
@@ -36,6 +36,6 @@ Once you have built the application you can flash it by running:
 west flash
 ```
 
-#### Inquiries
+# Inquiries
 
 Questions can be forwarded to e-mail: jhinrichs[at]kaist.ac.kr.
