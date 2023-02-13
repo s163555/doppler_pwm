@@ -1,5 +1,5 @@
 # Doppler PWM firmware
-Firmware for Doppler project (BMM Laboratory). Developed spring 2023 for MSEE thesis built on top of Zephyr RTOS.
+(PWM) Firmware for Doppler project built on top of Zephyr RTOS. Developed spring 2023 for MSEE thesis.
 
 ## Getting Started
 
@@ -36,6 +36,6 @@ Once you have built the application you can flash it by running:
 west flash
 ```
 
-# Inquiries
+## Inquiries
 
 Questions can be forwarded to e-mail: jhinrichs[at]kaist.ac.kr.

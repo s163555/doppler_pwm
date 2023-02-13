@@ -2,22 +2,22 @@
     //
     pwmleds {
         compatible = "pwm-leds";
-		pwmt1ch1: pwmt1ch1 {
+		pwmt1: pwmt1 {
 			//pwms = <&pwm1 2 PWM_NSEC(305) (PWM_POLARITY_NORMAL | STM32_PWM_COMPLEMENTARY)>;
             pwms = <&pwm1 1 PWM_NSEC(305) PWM_POLARITY_NORMAL>;
 		};
 /*         pwmt1ch1n: pwmt1ch1n {
             pwms = <&pwm1n 1 PWM_NSEC(305) PWM_POLARITY_INVERTED>;
         }; */
-        pwmt2ch1: pwmt2ch1 {
+        pwmt2: pwmt2 {
             pwms = <&pwm2 1 PWM_NSEC(3030) PWM_POLARITY_NORMAL>;
         };
 	};
 
     aliases {
-        pwmch1 = &pwmt1ch1;
+        pwmch1 = &pwmt1;
         /* pwmch1n = &pwmt1ch1n; */
-        pwmch2 = &pwmt2ch1;
+        pwmch2 = &pwmt2;
     };
 };
 
