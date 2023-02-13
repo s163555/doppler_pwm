@@ -1,0 +1,55 @@
+/ { // 
+    //
+    pwmleds {
+        compatible = "pwm-leds";
+		pwmt1ch1: pwmt1ch1 {
+			//pwms = <&pwm1 2 PWM_NSEC(305) (PWM_POLARITY_NORMAL | STM32_PWM_COMPLEMENTARY)>;
+            pwms = <&pwm1 1 PWM_NSEC(305) PWM_POLARITY_NORMAL>;
+		};
+/*         pwmt1ch1n: pwmt1ch1n {
+            pwms = <&pwm1n 1 PWM_NSEC(305) PWM_POLARITY_INVERTED>;
+        }; */
+        pwmt2ch1: pwmt2ch1 {
+            pwms = <&pwm2 1 PWM_NSEC(3030) PWM_POLARITY_NORMAL>;
+        };
+	};
+
+    aliases {
+        pwmch1 = &pwmt1ch1;
+        /* pwmch1n = &pwmt1ch1n; */
+        pwmch2 = &pwmt2ch1;
+    };
+};
+
+&timers1 {
+    compatible = "st,stm32-timers";
+    status = "okay";
+    st,prescaler = < 1 >;
+    pwm1: pwm1 {
+        compatible = "st,stm32-pwm";
+        status = "okay";
+        pinctrl-0 = <&tim1_ch1_pa8>;
+                    /* &tim1_ch1n_pa7>; */
+        pinctrl-names = "default";
+        #pwm-cells = < 3 >;
+    };
+/*     pwm1n: pwm1n {
+        compatible = "st,stm32-pwm";
+        status = "okay";
+        pinctrl-0 = <&tim1_ch1n_pa7>;
+        pinctrl-names = "default";
+        //#pwm-cells = < 1 >;
+    }; */
+};
+
+&timers2 {
+    status = "okay";
+    st,prescaler = < 2 >;
+    pwm2: pwm2 {
+        compatible = "st,stm32-pwm";
+        status = "okay";
+        pinctrl-0 = <&tim2_ch1_pa0>;
+        pinctrl-names = "default";
+        #pwm-cells = < 3 >;
+    };
+};

@@ -1,0 +1,8 @@
+pwm:
+  name: Fade LED
+tests:
+  pwm.basic.pwm:
+    tags: drivers pwm
+    depends_on: pwm
+    harness: led
+    filter: dt_alias_exists("pwmch1") and dt_alias_exists("pwmch2") and dt_compat_enabled("pwmleds")
