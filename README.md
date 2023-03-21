@@ -10,7 +10,7 @@ environment. You can follow the official
 ### Initialization
 
 The first step is to initialize the `dopper_pwm` workspace folder where the
-source and all Zephyr modules will be cloned. You can do that by running:
+source will be cloned. You can do that by running:
 
 ```shell
 # initialize doppler_pwm workspace

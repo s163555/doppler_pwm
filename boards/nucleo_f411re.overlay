@@ -3,8 +3,8 @@
     pwmleds {
         compatible = "pwm-leds";
 		pwmt1: pwmt1 {
-			//pwms = <&pwm1 2 PWM_NSEC(305) (PWM_POLARITY_NORMAL | STM32_PWM_COMPLEMENTARY)>;
-            pwms = <&pwm1 1 PWM_NSEC(305) PWM_POLARITY_NORMAL>;
+			pwms = <&pwm1 2 PWM_NSEC(305) (PWM_POLARITY_NORMAL | STM32_PWM_COMPLEMENTARY)>;
+            //pwms = <&pwm1 1 PWM_NSEC(305) PWM_POLARITY_NORMAL>;
 		};
 /*         pwmt1ch1n: pwmt1ch1n {
             pwms = <&pwm1n 1 PWM_NSEC(305) PWM_POLARITY_INVERTED>;
@@ -12,12 +12,16 @@
         pwmt2: pwmt2 {
             pwms = <&pwm2 1 PWM_NSEC(3030) PWM_POLARITY_NORMAL>;
         };
+        pwmt4: pwmt4 {
+            pwms = <&pwm4 1 PWM_USEC(100) PWM_POLARITY_NORMAL>;
+        };
 	};
 
     aliases {
         pwmch1 = &pwmt1;
         /* pwmch1n = &pwmt1ch1n; */
         pwmch2 = &pwmt2;
+        pwmch4 = &pwmt4;
     };
 };
 
@@ -28,8 +32,8 @@
     pwm1: pwm1 {
         compatible = "st,stm32-pwm";
         status = "okay";
-        pinctrl-0 = <&tim1_ch1_pa8>;
-                    /* &tim1_ch1n_pa7>; */
+        pinctrl-0 = <&tim1_ch1_pa8
+                    &tim1_ch1n_pa7>;
         pinctrl-names = "default";
         #pwm-cells = < 3 >;
     };
@@ -49,6 +53,18 @@
         compatible = "st,stm32-pwm";
         status = "okay";
         pinctrl-0 = <&tim2_ch1_pa0>;
+        pinctrl-names = "default";
+        #pwm-cells = < 3 >;
+    };
+};
+
+&timers4 {
+    status = "okay";
+    st,prescaler = < 10 >;
+    pwm4: pwm4 {
+        compatible = "st,stm32-pwm";
+        status = "okay";
+        pinctrl-0 = <&tim4_ch1_pb6>;
         pinctrl-names = "default";
         #pwm-cells = < 3 >;
     };
