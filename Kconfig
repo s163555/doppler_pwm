@@ -1,8 +1,5 @@
 # Copyright (c) 2021 Teslabs Engineering S.L.
 # SPDX-License-Identifier: Apache-2.0
 
-menu "Libraries"
-rsource "svm/Kconfig"
-rsource "utils/Kconfig"
-
-endmenu
+rsource "drivers/Kconfig"
+rsource "lib/Kconfig"

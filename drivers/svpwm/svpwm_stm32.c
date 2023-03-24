@@ -17,7 +17,8 @@
 #include <spinner/svm/svm.h>
 #include <spinner/utils/stm32_tim.h>
 
-LOG_MODULE_REGISTER(svpwm_stm32, CONFIG_SPINNER_SVPWM_LOG_LEVEL);
+//LOG_MODULE_REGISTER(svpwm_stm32, CONFIG_SPINNER_SVPWM_LOG_LEVEL);
+LOG_MODULE_REGISTER(svpwm_stm32, 1);
 
 /*******************************************************************************
  * Private
@@ -29,7 +30,7 @@ struct svpwm_stm32_config {
 	bool enable_comp_outputs;
 	uint32_t t_dead;
 	uint32_t t_rise;
-	const struct device *currsmp;
+	//const struct device *currsmp;
 	const struct gpio_dt_spec *enable;
 	size_t enable_len;
 	const struct pinctrl_dev_config *pcfg;
@@ -121,13 +122,13 @@ static void svpwm_stm32_set_phase_voltages(const struct device *dev,
 	/* program duties */
 	LL_TIM_OC_SetCompareCH1(config->timer,
 				(uint32_t)(data->period * duties->a));
-	LL_TIM_OC_SetCompareCH2(config->timer,
-				(uint32_t)(data->period * duties->b));
-	LL_TIM_OC_SetCompareCH3(config->timer,
-				(uint32_t)(data->period * duties->c));
+	//LL_TIM_OC_SetCompareCH2(config->timer,
+	//			(uint32_t)(data->period * duties->b));
+	//LL_TIM_OC_SetCompareCH3(config->timer,
+	//			(uint32_t)(data->period * duties->c));
 
 	/* inform current sampling device about current sector */
-	currsmp_set_sector(config->currsmp, data->svm.sector);
+	//currsmp_set_sector(config->currsmp, data->svm.sector);
 }
 
 static const struct svpwm_driver_api svpwm_stm32_driver_api = {
@@ -153,10 +154,10 @@ static int svpwm_stm32_init(const struct device *dev)
 	LL_TIM_OC_InitTypeDef tim_ocinit;
 	LL_TIM_BDTR_InitTypeDef brk_dt_init;
 
-	if (!device_is_ready(config->currsmp)) {
+	/*if (!device_is_ready(config->currsmp)) {
 		LOG_ERR("Current sampling device not ready");
 		return -ENODEV;
-	}
+	}*/
 
 	/* configure pinmux */
 	ret = pinctrl_apply_state(config->pcfg, PINCTRL_STATE_DEFAULT);
@@ -210,7 +211,7 @@ static int svpwm_stm32_init(const struct device *dev)
 		return -EIO;
 	}
 
-	if (LL_TIM_OC_Init(config->timer, LL_TIM_CHANNEL_CH2, &tim_ocinit) !=
+	/*if (LL_TIM_OC_Init(config->timer, LL_TIM_CHANNEL_CH2, &tim_ocinit) !=
 	    SUCCESS) {
 		LOG_ERR("Could not initialize timer OC for channel 2");
 		return -EIO;
@@ -220,10 +221,10 @@ static int svpwm_stm32_init(const struct device *dev)
 	    SUCCESS) {
 		LOG_ERR("Could not initialize timer OC for channel 3");
 		return -EIO;
-	}
+	}*/
 
 	/* initialize OC for ADC trigger channel */
-	tim_ocinit.OCMode = LL_TIM_OCMODE_PWM2;
+	/*tim_ocinit.OCMode = LL_TIM_OCMODE_PWM2;
 	tim_ocinit.CompareValue = data->period - 1U;
 	if (LL_TIM_OC_Init(config->timer, LL_TIM_CHANNEL_CH4, &tim_ocinit) !=
 	    SUCCESS) {
@@ -231,16 +232,15 @@ static int svpwm_stm32_init(const struct device *dev)
 		return -EIO;
 	}
 
-	LL_TIM_SetTriggerOutput(config->timer, LL_TIM_TRGO_OC4REF);
-
+	LL_TIM_SetTriggerOutput(config->timer, LL_TIM_TRGO_OC4REF);*/
 	/* enable pre-load on all OC channels */
 	LL_TIM_OC_EnablePreload(config->timer, LL_TIM_CHANNEL_CH1);
-	LL_TIM_OC_EnablePreload(config->timer, LL_TIM_CHANNEL_CH2);
+/* 	LL_TIM_OC_EnablePreload(config->timer, LL_TIM_CHANNEL_CH2);
 	LL_TIM_OC_EnablePreload(config->timer, LL_TIM_CHANNEL_CH3);
-	LL_TIM_OC_EnablePreload(config->timer, LL_TIM_CHANNEL_CH4);
+	LL_TIM_OC_EnablePreload(config->timer, LL_TIM_CHANNEL_CH4); */
 
 	/* configure ADC sampling point (middle of the period) */
-	LL_TIM_OC_SetCompareCH4(config->timer, data->period - 1U);
+/* 	LL_TIM_OC_SetCompareCH4(config->timer, data->period - 1U); */
 
 	/* setup break and dead-time if available */
 	LL_TIM_BDTR_StructInit(&brk_dt_init);

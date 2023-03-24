@@ -21,12 +21,13 @@
 //static const struct pwm_dt_spec pwm_t4 = PWM_DT_SPEC_GET(DT_ALIAS(pwmch4));
 #define SLEEP_MSEC	100U
 
-struct pwmcontrol {
+/* struct pwmcontrol {
 	const struct device *svpwm;
-}
+} */
 
 void main(void)
 {
+	printk("Test af main - %s\r\n", CONFIG_BOARD);
 	//pwmcontrol.svpwm = DEVICE_DT_GET(DT_NODELABEL(svpwm));
 	//svpwm_start(pwmcontrol.svpwm);
 /*	uint32_t pulse_width_t1 = 152U;
@@ -72,5 +73,6 @@ void main(void)
 		for(int i=0;i<1000;i++) {
 			k_sleep(K_MSEC(SLEEP_MSEC));
 		}
+		printk("Loop iteration\r\n");
 	}
 }
